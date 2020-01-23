@@ -9,4 +9,9 @@
         app:showAsAction="always"
         android:icon="@drawable/notifications"
         android:title="Notifications" />
+
+    <item
+        android:id="@+id/stopStress"
+        android:title="Stop stress signal"
+        app:showAsAction="never"/>
 </menu>

@@ -8,6 +8,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -36,6 +38,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+
+        Intent serviceIntent = new Intent(this,BackgroundWorker.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent);              //TODO: add backwards compatibility
+        }
     }
     @Override
     public void onBackPressed() {
@@ -64,7 +71,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.item1:
                 Toast.makeText(getApplicationContext(), "Item 1 Selected", Toast.LENGTH_LONG).show();
                 return true;
-
+            case R.id.stopStress:
+                new FirestoreHandler(this).stopStressSignal();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
