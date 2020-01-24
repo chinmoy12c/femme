@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationBuilderWithBuilderAccessor;
 import androidx.core.app.NotificationCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +47,7 @@ public class FirestoreHandler {
 
 
     void sendStressSignal(LatLng bounds){
+        Constants.isStressSignalSender = true;
         Map<String,Object> userData = new HashMap<>();
         userData.put("username",Constants.USERNAME);
         userData.put("latitude",bounds.latitude);
@@ -61,7 +64,7 @@ public class FirestoreHandler {
             public void onSuccess(Void aVoid) {
                 Log.d("Signal","Stress signal sent");
                 Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(2000);
+                vibrator.vibrate(1000);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -71,6 +74,7 @@ public class FirestoreHandler {
         });
 
         databaseRef.collection("recentSignals").add(userData);
+        setLocationUpdater(stressSignalDocument);
     }
 
     void listenStressSignal(){
@@ -83,19 +87,56 @@ public class FirestoreHandler {
                         double latitude = documentSnapshot.getDouble("latitude");
                         double longitude = documentSnapshot.getDouble("longitude");
                         String username = documentSnapshot.getString("username");
-                        startAlarm();
-                        sendNotification(latitude,longitude,username);
+
+                        if (!Constants.isStressSignalSender){
+                            startAlarm();
+                            sendNotification(latitude,longitude,username);
+                        }
                     }
                 }
             }
         });
     }
 
+    private void setLocationUpdater(final String stressSignalDocument) {
+        Thread updateCoords = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (Constants.isStressSignalSent){
+                    try {
+                        Thread.sleep(Constants.LOCATION_UPDATE_DURATION);
+                        Log.d("Update","sending Location updates");
+                        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location bounds = task.getResult();
+                                Map<String,Object> updatedData = new HashMap<>();
+                                updatedData.put("latitude",bounds.getLatitude());
+                                updatedData.put("longitude",bounds.getLongitude());
+
+                                databaseRef.collection("updatedCoords").document(stressSignalDocument).set(updatedData);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        updateCoords.start();
+    }
+
     private void sendNotification(double latitude, double longitude, String username) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("stressDetails",Context.MODE_PRIVATE);
+        String stressDocument = sharedPreferences.getString("documentId","");
         Intent notifyStress = new Intent(context,StressTracerMap.class);
         notifyStress.putExtra("latitude",latitude);
         notifyStress.putExtra("longitude",longitude);
         notifyStress.putExtra("username",username);
+        notifyStress.putExtra("userDocumentStress",stressDocument);
         notifyStress.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,notifyStress,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -136,6 +177,7 @@ public class FirestoreHandler {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Constants.isStressSignalSent = false;
+                        Constants.isStressSignalSender = false;
                         Toast.makeText(context, "Stress signal stopped", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
