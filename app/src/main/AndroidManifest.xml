@@ -39,6 +39,7 @@
         <activity android:name=".SignIn" />
         <activity android:name=".Sign_in_up" />
         <activity android:name=".LaterActivity" />
+        <activity android:name=".MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,7 +60,7 @@
             android:name=".GeoFire"
             android:label="@string/title_activity_geo_fire" />
         <activity android:name=".Home" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Splash_w">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

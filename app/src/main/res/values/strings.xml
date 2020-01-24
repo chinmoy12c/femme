@@ -44,5 +44,10 @@
     <string name="pswrd">Password</string>
     <string name="aadhar_no">Aadhar Number</string>
     <string name="confirm_pswrd">Confirm Password</string>
+    <string name="or">OR</string>
+    <string name="text_sign_up">Don\'t have an account?</string>
+    <string name="signUp">SignUp</string>
+    <string name="local">Local</string>
+    <string name="text_tourist">Tourist</string>
 
 </resources>
