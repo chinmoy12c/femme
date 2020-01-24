@@ -1,28 +1,24 @@
 package com.example.safetapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
  MaterialButton start;
     private SensorManager sm;
-    MediaPlayer player;
+    MediaPlayer  player;
     private float acelVal;  //current value of acc and gravity
     private float acelLast;  //last value of acc and gravity
     private float acelShake;   //acc value differ from gravity
@@ -43,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         assert sm != null;
-        sm.registerListener(sensorEventListener, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
-
+        //sm.registerListener(sensorEventListener, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
+        //TODO: uncomment to use feature
         acelVal = SensorManager.GRAVITY_EARTH;
         acelLast = SensorManager.GRAVITY_EARTH;
         acelShake = 0.00f;
