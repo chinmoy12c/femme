@@ -10,12 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="30dp"
             android:layout_marginStart="20dp"
             android:elevation="10dp"
             android:layout_marginTop="10dp"
@@ -65,7 +65,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="30dp"
             android:layout_marginStart="20dp"
             android:elevation="10dp"
             android:layout_marginTop="20dp"
@@ -81,7 +80,7 @@
                     android:id="@+id/gif_place"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/city"
+                    android:src="@drawable/place"
                     />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +112,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="30dp"
             android:layout_marginStart="20dp"
             android:elevation="10dp"
             android:layout_marginTop="20dp"
@@ -131,6 +129,7 @@
                     android:layout_height="100dp"
                     android:src="@drawable/city"
                     />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/city_layout"
@@ -160,7 +159,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="50dp"
             android:elevation="10dp"
@@ -187,7 +185,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/time"
             app:boxBackgroundMode="outline"

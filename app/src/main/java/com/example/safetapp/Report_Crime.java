@@ -76,6 +76,10 @@ public class Report_Crime extends FragmentActivity implements OnMapReadyCallback
                 if(current.isChecked())
                 {
                     Intent i = new Intent(Report_Crime.this, CurrentCrime.class);
+                    i.putExtra("Address", Address);
+                    i.putExtra("City", city);
+                    i.putExtra("Latitude", latLng.latitude);
+                    i.putExtra("Longitude", latLng.longitude);
                     startActivity(i);
                 }
 
@@ -174,7 +178,7 @@ public class Report_Crime extends FragmentActivity implements OnMapReadyCallback
 
                 //move map camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             }
 
             else
