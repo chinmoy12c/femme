@@ -61,7 +61,7 @@
 
 </LinearLayout>
     <com.spark.submitbutton.SubmitButton
-        android:id="@+id/submit_feedback"
+        android:id="@+id/submit_btn"
         android:layout_width="430dp"
         android:layout_height="80dp"
         android:layout_marginTop="20dp"

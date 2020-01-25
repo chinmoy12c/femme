@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class Later_2 extends AppCompatActivity {
-
     Button Later_next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
