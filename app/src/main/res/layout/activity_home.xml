@@ -25,8 +25,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/activity_home_drawer"
-        app:itemTextColor="@color/colorPrimary"
+        app:itemTextColor="@color/grey_dark"
         android:outlineAmbientShadowColor="@color/colorAccent"
-        app:itemShapeFillColor="@color/colorAccent"
+
      />
 </androidx.drawerlayout.widget.DrawerLayout>
