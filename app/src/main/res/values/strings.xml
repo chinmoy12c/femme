@@ -49,5 +49,11 @@
     <string name="signUp">SignUp</string>
     <string name="local">Local</string>
     <string name="text_tourist">Tourist</string>
+    <string name="police_station">Police station</string>
+    <string name="police_st_address">Police Station Address</string>
+    <string name="name">Name</string>
+    <string name="email">Email Id</string>
+    <string name="phone_no">Phone Number</string>
+    <string name="date">Date</string>
 
 </resources>

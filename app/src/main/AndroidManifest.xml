@@ -26,7 +26,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+<<<<<<< Updated upstream
 
+=======
+        <activity android:name=".ReportFIR"></activity>
+        <activity android:name=".Fir_token" />
+        <activity android:name=".Later_3" />
+        <activity android:name=".Later_2" />
+>>>>>>> Stashed changes
         <activity
             android:name=".StressTracerMap"
             android:launchMode="singleTask"
