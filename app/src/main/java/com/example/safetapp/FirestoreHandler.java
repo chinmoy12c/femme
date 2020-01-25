@@ -50,7 +50,7 @@ public class FirestoreHandler {
         userData.put("latitude",bounds.latitude);
         userData.put("longitude",bounds.longitude); //TODO: use geocodes later as a workaround for the limitation of composite queries
 
-        String stressSignalDocument  = UUID.randomUUID().toString();
+        String stressSignalDocument  = Constants.USERNAME+"stressDoucment";
         SharedPreferences sharedPreferences = context.getSharedPreferences("stressDetails",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("documentId",stressSignalDocument);
