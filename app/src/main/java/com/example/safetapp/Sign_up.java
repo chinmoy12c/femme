@@ -50,7 +50,7 @@ public class Sign_up extends AppCompatActivity {
         if(User_type.equals("Tourist"))
         {
             user_id.setHint("PassportId");
-            user_id_edit.setHint("PassportId");
+//            user_id_edit.setHint("PassportId");
         }
     }
 
