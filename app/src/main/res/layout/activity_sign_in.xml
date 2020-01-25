@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/ic_femme"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"/>

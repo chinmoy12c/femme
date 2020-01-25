@@ -7,6 +7,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".Home"
+    android:background="@drawable/path2">
+
+    <ImageView
+        android:id="@+id/logoHome"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_femme"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Femme"
+        android:layout_below="@id/logoHome"
+        android:layout_centerHorizontal="true"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:fontFamily="cursive"
+        android:textColor="#DA570475"/>
 
 </RelativeLayout>
