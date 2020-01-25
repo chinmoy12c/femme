@@ -13,7 +13,11 @@ public class CurrentCrime extends AppCompatActivity {
 
     Button next_page;
     TextInputEditText coordiantes, place, city, time;
-    String Coordiantes_lat, Coordiantes_long, Place, City, Time;
+    double Coordiantes_lat;
+    double Coordiantes_long;
+    String Place;
+    String City;
+    String Time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,8 @@ public class CurrentCrime extends AppCompatActivity {
             }
         });
 
-        Coordiantes_lat = getIntent().getStringExtra("Latitude");
-        Coordiantes_long = getIntent().getStringExtra("Longitude");
+        Coordiantes_lat = getIntent().getDoubleExtra("Latitude",00.00);
+        Coordiantes_long = getIntent().getDoubleExtra("Longitude",00.00);
         Place = getIntent().getStringExtra("Address");
         City = getIntent().getStringExtra("City");
 
@@ -40,7 +44,7 @@ public class CurrentCrime extends AppCompatActivity {
         city = findViewById(R.id.city_edit_text);
         time= findViewById(R.id.city_edit_text);
 
-        coordiantes.setText(Coordiantes_lat+""+Coordiantes_long);
+        coordiantes.setText(Coordiantes_lat+" "+Coordiantes_long);
         place.setText(Place);
         city.setText(City);
 
