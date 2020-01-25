@@ -32,14 +32,30 @@
             android:name=".StressTracerMap"
             android:launchMode="singleTask"
             android:taskAffinity="" />
-        <activity android:name=".Current_crime_3" />
-        <activity android:name=".Crime_current_2" />
-        <activity android:name=".Sign_up" />
-        <activity android:name=".Choose_user_type" />
-        <activity android:name=".SignIn" />
-        <activity android:name=".Sign_in_up" />
-        <activity android:name=".LaterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Current_crime_3"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Crime_current_2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Sign_up"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Choose_user_type"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignIn"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Sign_in_up"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LaterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Later_2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Later_3"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Fir_token"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ReportFIR"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -54,13 +70,18 @@
 
         <activity
             android:name=".Report_Crime"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_report__crime" />
-        <activity android:name=".CurrentCrime" /> <!-- android:label="@string/title_activity_geo_fire"/> -->
+        <activity android:name=".CurrentCrime"
+            android:screenOrientation="portrait"/> <!-- android:label="@string/title_activity_geo_fire"/> -->
         <activity
             android:name=".GeoFire"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_geo_fire" />
-        <activity android:name=".Home" />
-        <activity android:name=".Splash_w">
+        <activity android:name=".Home"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Splash_w"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
