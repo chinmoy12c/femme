@@ -27,12 +27,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".Fir_token"></activity>
+        <activity android:name=".Later_3" />
+        <activity android:name=".Later_2" />
         <activity
             android:name=".StressTracerMap"
             android:launchMode="singleTask"
-            android:taskAffinity=""/>
-
+            android:taskAffinity="" />
         <activity android:name=".Current_crime_3" />
         <activity android:name=".Crime_current_2" />
         <activity android:name=".Sign_up" />
