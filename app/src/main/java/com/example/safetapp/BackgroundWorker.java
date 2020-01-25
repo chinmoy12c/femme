@@ -1,5 +1,6 @@
 package com.example.safetapp;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,7 +9,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -43,9 +46,9 @@ public class BackgroundWorker extends Service {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, final Intent intent) {
-                Log.d("BROADCAST MESSAGE",String.valueOf(powerCounter++));
+                Log.d("BROADCAST MESSAGE", String.valueOf(powerCounter++));
 
-                if (powerCounter == 1){
+                if (powerCounter == 1) {
                     powerCounterThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -60,15 +63,16 @@ public class BackgroundWorker extends Service {
                     powerCounterThread.start();
                 }
 
-                if (powerCounter >= 5 && !Constants.isStressSignalSent){
-                    Log.d("Fire event","SEND ALARM");
+                if (powerCounter >= 5 && !Constants.isStressSignalSent) {
+                    Log.d("Fire event", "SEND ALARM");
                     FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
                     fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                         @Override
                         public void onComplete(@NonNull Task<Location> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Location bounds = task.getResult();
-                                firestoreHandler.sendStressSignal(new LatLng(bounds.getLatitude(),bounds.getLongitude()));
+                                firestoreHandler.sendStressSignal(new LatLng(bounds.getLatitude(), bounds.getLongitude()));
+                                sendStressCall();
                             }
                         }
                     });
@@ -81,7 +85,14 @@ public class BackgroundWorker extends Service {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(broadcastReceiver,intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    private void sendStressCall() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + Constants.STRESS_CALL_NUMBER));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Log.d("Call","Sending call");
+        startActivity(intent);
     }
 
     private void createForegroundService() {
