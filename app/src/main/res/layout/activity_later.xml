@@ -172,6 +172,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="NEXT"
+        android:onClick="Next"
         android:layout_gravity="bottom"
         android:drawableEnd="@drawable/next"
         android:layout_marginBottom="20dp"/>

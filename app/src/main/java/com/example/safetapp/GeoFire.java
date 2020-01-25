@@ -134,7 +134,7 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback,
     }
 
     private void initArea() {
-        dangerousAreaLocation.add(new LatLng(28.4728,77.4820));
+        //dangerousAreaLocation.add(new LatLng(28.4728,77.4820));
         dangerousAreaLocation.add(new LatLng(28.5703,77.3218));
         dangerousAreaLocation.add(new LatLng(28.5221,77.2102));
         dangerousAreaLocation.add(new LatLng(28.6304,77.2177));
