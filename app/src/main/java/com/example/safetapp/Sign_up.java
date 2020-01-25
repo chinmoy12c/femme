@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,8 +31,7 @@ public class Sign_up extends AppCompatActivity {
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Sign_up.this, Home.class);
-                startActivity(i);
+                checkAdhaar();
             }
         });
         SignIn_=findViewById(R.id.signIn_text2);
@@ -39,17 +39,30 @@ public class Sign_up extends AppCompatActivity {
         SignIn_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Sign_up.this, SignIn.class);
+               Intent i = new Intent(Sign_up.this, SignIn.class);
                 startActivity(i);
+
             }
         });
 
         User_type=getIntent().getStringExtra("User_type");
 
-        if(User_type == "Tourist")
+        if(User_type.equals("Tourist"))
         {
             user_id.setHint("PassportId");
             user_id_edit.setHint("PassportId");
+        }
+    }
+
+    private void checkAdhaar() {
+        if((user_id_edit.getText().length()==12))
+        {
+            Intent i = new Intent(Sign_up.this, SignIn.class);
+            startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(this, "Enter valid Adhaar Number.", Toast.LENGTH_SHORT).show();
         }
     }
 }
