@@ -15,7 +15,7 @@
     <string name="place">Place</string>
     <string name="city">City</string>
     <string name="time">Time</string>
-    <string name="crime_type">Crime Type</string>
+<!--    <string name="crime_type">Crime Type</string>-->
     <string name="reporter_type">Reporter Type</string>
     <string name="security_availability">Security Availability</string>
     <string name="proofs">Proof</string>
@@ -55,5 +55,10 @@
     <string name="email">Email Id</string>
     <string name="phone_no">Phone Number</string>
     <string name="date">Date</string>
+    <string name="eve_teasing">Eve Teasing</string>
+    <string name="molestation">Molestation</string>
+    <string name="dowry">Dowry</string>
+    <string name="rape">Rape</string>
+    <string name="crime_type">Crime Type</string>
 
 </resources>
