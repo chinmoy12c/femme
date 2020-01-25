@@ -119,6 +119,7 @@
                         android:paddingStart="10dp"
                         android:fontFamily="@font/rambla"
                         android:paddingEnd="10dp"
+                        app:tbgMarkerColor="@color/tbg_color_default_marker"
                         android:text="@string/none"
                         android:layout_marginEnd="5dp"/>
 
@@ -129,6 +130,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:fontFamily="@font/rambla"
+                        app:tbgMarkerColor="@color/colorPrimaryDark"
                         android:text="@string/minimal"
                         android:layout_marginEnd="5dp"/>
 
@@ -139,6 +141,7 @@
                         android:fontFamily="@font/rambla"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        app:tbgMarkerColor="@color/colorAccent"
                         android:text="@string/normal"
                         android:layout_marginEnd="5dp"/>
 
@@ -149,8 +152,90 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:fontFamily="@font/rambla"
-                        app:tbgMarkerColor="@color/colorAccent"
+                        app:tbgMarkerColor="@color/red"
                         android:text="@string/excessive"
+                        android:layout_marginEnd="5dp"/>
+
+                </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_crime_type"
+            android:layout_below="@id/card_security_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginStart="20dp"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/crime_type"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey_dark"
+                    android:fontFamily="@font/rambla"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
+                    android:id="@+id/group_choices_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    app:tbgCheckedButton="@+id/normal">
+
+                    <com.nex3z.togglebuttongroup.button.CircularToggle
+                        android:id="@+id/eveTeasing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:fontFamily="@font/rambla"
+                        android:paddingEnd="10dp"
+                        android:text="@string/eve_teasing"
+                        android:layout_marginEnd="5dp"/>
+
+                    <com.nex3z.togglebuttongroup.button.CircularToggle
+                        android:id="@+id/Molestation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        app:tbgMarkerColor="@color/colorAccent"
+                        android:fontFamily="@font/rambla"
+                        android:text="@string/molestation"
+                        android:layout_marginEnd="5dp"/>
+
+                    <com.nex3z.togglebuttongroup.button.CircularToggle
+                        android:id="@+id/Dowry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rambla"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        app:tbgMarkerColor="@color/colorPrimaryDark"
+                        android:text="@string/dowry"
+                        android:layout_marginEnd="5dp"/>
+
+                    <com.nex3z.togglebuttongroup.button.CircularToggle
+                        android:id="@+id/Rape"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:fontFamily="@font/rambla"
+                        app:tbgMarkerColor="@color/red"
+                        android:text="@string/rape"
                         android:layout_marginEnd="5dp"/>
 
                 </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
@@ -533,7 +618,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/proof"
-            android:layout_below="@+id/card_security_type"
+            android:layout_below="@+id/card_crime_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
