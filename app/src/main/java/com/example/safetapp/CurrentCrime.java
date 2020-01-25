@@ -9,6 +9,11 @@ import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class CurrentCrime extends AppCompatActivity {
 
     Button next_page;
@@ -42,11 +47,14 @@ public class CurrentCrime extends AppCompatActivity {
         coordiantes = findViewById(R.id.gps_coordinates_edit_text);
         place = findViewById(R.id.place_edit_text);
         city = findViewById(R.id.city_edit_text);
-        time= findViewById(R.id.city_edit_text);
+        time= findViewById(R.id.time_edit_text);
 
         coordiantes.setText(Coordiantes_lat+" "+Coordiantes_long);
         place.setText(Place);
         city.setText(City);
+        SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        Time=sdf.format(new Date());
+        time.setText(Time);
 
 
     }
