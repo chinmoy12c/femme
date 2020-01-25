@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryDataEventListener;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -38,19 +39,21 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-public class GeoFire extends FragmentActivity implements OnMapReadyCallback ,
+public class GeoFire extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener
-{
+        LocationListener, GeoQueryDataEventListener {
 
     private GoogleMap mMap;
     private TextToSpeech mTTS;
@@ -65,6 +68,8 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback ,
     private static int UPDATE_INTERVAL = 5000;
     private static int FASTEST_INTERVAL = 3000;
     private static int DISPLACEMENT = 10;
+    private List <LatLng>dangerousAreaLocation;
+    int colour[]=new int[4];
 
     VerticalSeekBar seekBar;
     Vibrator vibrator;
@@ -83,6 +88,7 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback ,
         mapFragment.getMapAsync(this);
 
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        dangerousAreaLocation=new ArrayList<>();
 
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -124,6 +130,19 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback ,
 
 
         setUpLocation();
+        initArea();
+    }
+
+    private void initArea() {
+        dangerousAreaLocation.add(new LatLng(28.4728,77.4820));
+        dangerousAreaLocation.add(new LatLng(28.5703,77.3218));
+        dangerousAreaLocation.add(new LatLng(28.5221,77.2102));
+        dangerousAreaLocation.add(new LatLng(28.6304,77.2177));
+        colour[0]=0x44ff0000;
+        colour[1]=0x44008000;
+        colour[2]=0x440397F7;
+        colour[3]=0x449355F2;
+
     }
 
     @Override
@@ -247,57 +266,30 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback ,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        int i=0;
 
         //Create Dangerous area
-        LatLng dangerous_area = new LatLng(28.7525, 77.49928);
-        mMap.addCircle(new CircleOptions()
-              .center(dangerous_area)
-                .radius(1000)   //1km
-                .strokeColor(Color.BLUE)
-                .fillColor(0x22ff0000)
-                .strokeWidth(5.0f)
-        );
+
+       for(LatLng latLng : dangerousAreaLocation)
+       {    while(i<4) {
+           mMap.addCircle(new CircleOptions()
+                   .center(latLng)
+                   .radius(2500)   //1km
+                   .strokeColor(Color.BLACK)
+                   .fillColor(colour[i])
+                   .strokeWidth(3.0f)
+           );
+           i++;
+           break;
+       }
+
+           GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(latLng.latitude, latLng.longitude),1f);
+           geoQuery.addGeoQueryDataEventListener(GeoFire.this);
+       }
 
         //adding geoquery
         //1f=10000m=1km
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area.latitude, dangerous_area.longitude),1f);
-        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
-            @Override
-            public void onKeyEntered(String key, GeoLocation location) {
-                sendNotification("Safety App", String.format(("%s Entered dangerous Area"), key));
-                String text ="Alert! You entered dangerous area.Be careful.";
-                vibrator.vibrate(2000);
-                mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-            }
 
-            @Override
-            public void onKeyExited(String key) {
-                sendNotification("Safety App", String.format(("%s Exited dangerous Area"), key));
-                String text ="Thank God! You exited dangerous area.You are safe now.";
-                vibrator.vibrate(2000);
-                mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-            }
-
-            @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-
-                Toast.makeText(GeoFire.this, String.format("%s Moved within the dangerous area [%f, %f]", key, location.latitude, location.longitude), Toast.LENGTH_SHORT).show();
-                String text ="Alert! You are in dangerous area.Be careful.";
-                vibrator.vibrate(2000);
-                mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-            }
-
-            @Override
-            public void onGeoQueryReady() {
-
-            }
-
-            @Override
-            public void onGeoQueryError(DatabaseError error) {
-
-                Log.e("ERROR", ""+error);
-            }
-        });
     }
 
     @Override
@@ -361,4 +353,43 @@ LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locatio
 
     }
 
+    @Override
+    public void onDataEntered(DataSnapshot dataSnapshot, GeoLocation location) {
+        sendNotification("Safety App", String.format(("%s Entered dangerous Area"), dataSnapshot));
+        String text ="Alert! You entered dangerous area.Be careful.";
+        vibrator.vibrate(2000);
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    public void onDataExited(DataSnapshot dataSnapshot) {
+        sendNotification("Safety App", String.format(("%s Exited dangerous Area"), dataSnapshot));
+        String text ="Thank God! You exited dangerous area.You are safe now.";
+        vibrator.vibrate(2000);
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+
+    }
+
+    @Override
+    public void onDataMoved(DataSnapshot dataSnapshot, GeoLocation location) {
+        Toast.makeText(GeoFire.this, String.format("%s Moved within the dangerous area [%f, %f]", dataSnapshot, location.latitude, location.longitude), Toast.LENGTH_SHORT).show();
+        String text ="Alert! You are in dangerous area.Be careful.";
+        vibrator.vibrate(2000);
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    public void onDataChanged(DataSnapshot dataSnapshot, GeoLocation location) {
+
+    }
+
+    @Override
+    public void onGeoQueryReady() {
+
+    }
+
+    @Override
+    public void onGeoQueryError(DatabaseError error) {
+        Log.e("ERROR", ""+error);
+    }
 }
