@@ -100,13 +100,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
 
             case R.id.nav_fir_token:
-                startActivity(new Intent(Home.this, Fir_token.class));
+                startActivity(new Intent(Home.this, ReportFIR.class));
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 break;
 
             case R.id.nav_settings:
-               // startActivity(new Intent(Home.this, Nothing_to_show.class));
-//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                startActivity(new Intent(Home.this, Fir_token.class));
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 break;
 
         }

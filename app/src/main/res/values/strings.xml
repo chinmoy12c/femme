@@ -60,5 +60,6 @@
     <string name="dowry">Dowry</string>
     <string name="rape">Rape</string>
     <string name="crime_type">Crime Type</string>
+<!--    <string name="crime_type">Crime Type</string>-->
 
 </resources>

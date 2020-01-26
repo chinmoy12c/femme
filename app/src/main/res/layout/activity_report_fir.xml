@@ -111,6 +111,30 @@
                         app:helperText="@string/required">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/crime_type1_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/crime_type1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/phone_layout"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/crime_type"
+                        app:boxBackgroundMode="filled"
+                        app:boxCornerRadiusTopEnd="16dp"
+                        app:boxCornerRadiusTopStart="16dp"
+                        app:boxBackgroundColor="@color/design_default_color_on_primary"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        app:boxStrokeErrorColor="#DD1818"
+                        app:helperText="@string/required">
+
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/phone_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -251,6 +275,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:onClick="submitFirRecord"
         app:sub_btn_background="@color/colorPrimary"
         app:sub_btn_duration="3000"
         app:sub_btn_line_color="@color/colorPrimary"

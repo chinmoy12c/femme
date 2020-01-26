@@ -134,7 +134,7 @@ public class GeoFire extends FragmentActivity implements OnMapReadyCallback,
     }
 
     private void initArea() {
-        //dangerousAreaLocation.add(new LatLng(28.4728,77.4820));
+        dangerousAreaLocation.add(new LatLng(28.4728,77.4820));
         dangerousAreaLocation.add(new LatLng(28.5703,77.3218));
         dangerousAreaLocation.add(new LatLng(28.5221,77.2102));
         dangerousAreaLocation.add(new LatLng(28.6304,77.2177));
@@ -355,7 +355,7 @@ LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locatio
 
     @Override
     public void onDataEntered(DataSnapshot dataSnapshot, GeoLocation location) {
-        sendNotification("Safety App", String.format(("%s Entered dangerous Area"), dataSnapshot));
+        sendNotification("Safety App", String.format(("%s Entered dangerous Area"), location));
         String text ="Alert! You entered dangerous area.Be careful.";
         vibrator.vibrate(2000);
         mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
@@ -363,7 +363,7 @@ LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locatio
 
     @Override
     public void onDataExited(DataSnapshot dataSnapshot) {
-        sendNotification("Safety App", String.format(("%s Exited dangerous Area"), dataSnapshot));
+        sendNotification("Safety App", String.format(("%s Exited dangerous Area"), location));
         String text ="Thank God! You exited dangerous area.You are safe now.";
         vibrator.vibrate(2000);
         mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
@@ -372,7 +372,7 @@ LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locatio
 
     @Override
     public void onDataMoved(DataSnapshot dataSnapshot, GeoLocation location) {
-        Toast.makeText(GeoFire.this, String.format("%s Moved within the dangerous area [%f, %f]", dataSnapshot, location.latitude, location.longitude), Toast.LENGTH_SHORT).show();
+        Toast.makeText(GeoFire.this,String.format("%s Moved within the dangerous area [%f, %f]", location, location.latitude, location.longitude), Toast.LENGTH_SHORT).show();
         String text ="Alert! You are in dangerous area.Be careful.";
         vibrator.vibrate(2000);
         mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
