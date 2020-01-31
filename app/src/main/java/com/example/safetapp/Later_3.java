@@ -33,6 +33,7 @@ public class Later_3 extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                submitReport();
                 Intent i = new Intent(Later_3.this, ReportFIR.class);
                 i.putExtra("Description", des);
                 startActivity(i);
@@ -40,37 +41,22 @@ public class Later_3 extends AppCompatActivity {
         });
     }
 
-    public void OnSubmit() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Later_3.this);
-        builder.setMessage("Do you want to file an FIR ?");
-        builder.setTitle("Alert");
-        builder.setCancelable(true);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    private void submitReport() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to report an FIR?")
+                .setItems(new String[]{"Yes", "No"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i == 0)
+                        {
+                                startActivity(new Intent(Later_3.this,ReportFIR.class));
+                        }
+                        else{
+                            startActivity(new Intent(Later_3.this,ReportFIR.class));
+                        }
+                    }
+                });
 
-            @Override
-            public void onClick(DialogInterface dialog,
-                                int which)
-            {
-
-            }
-        });
-
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog,
-                                int which)
-            {
-
-                // If user click no
-                // then dialog box is canceled.
-                dialog.cancel();
-            }
-        });
-
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        builder.show();
     }
 }

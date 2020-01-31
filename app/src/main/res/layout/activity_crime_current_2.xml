@@ -723,7 +723,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="NEXT"
-
             android:drawableEnd="@drawable/next"
             android:layout_marginBottom="50dp"/>
     </RelativeLayout>
